@@ -1,8 +1,6 @@
 # NGA Redirector
 
-**Last update: 2020.10.15**
-
-Auto redirect NGA domains to `bbs.nga.cn`
+Automatically redirect NGA domains to `bbs.nga.cn`
 
 ## GitHub
 
