@@ -3,8 +3,8 @@
 // @name:en-US          Live Danmaku Controller
 // @name:zh-CN          直播弹幕控制
 // @name:zh-TW          直播彈幕控制
-// @description         Auto turn off live danmaku
-// @description:en-US   Auto turn off live danmaku
+// @description         Automatically turn off the live streaming danmaku
+// @description:en-US   Automatically turn off the live streaming danmaku
 // @description:zh-CN   自动关闭直播弹幕
 // @description:zh-TW   自動關閉直播彈幕
 // @namespace           live-danmaku-controller

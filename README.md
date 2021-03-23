@@ -1,5 +1,7 @@
 # Live Danmaku Controller
 
+Automatically turn off the live streaming danmaku.
+
 ### List of support sites
 
 - douyu `www.douyu.com`
