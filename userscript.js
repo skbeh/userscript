@@ -3,8 +3,8 @@
 // @name:en-US          bilibili Danmaku Disabler
 // @name:zh-CN          bilibili 弹幕关闭
 // @name:zh-TW          bilibili 彈幕關閉
-// @description         Auto disable bilibili HTML5 player danmaku
-// @description:en-US   Auto disable bilibili HTML5 player danmaku
+// @description         Automatically turn off bilibili HTML5 player danmaku
+// @description:en-US   Automatically turn off bilibili HTML5 player danmaku
 // @description:zh-CN   自动关闭哔哩哔哩 HTML5 播放器弹幕
 // @description:zh-TW   自動關閉嗶哩嗶哩 HTML5 播放器彈幕
 // @namespace           bilibili-danmaku-disabler
