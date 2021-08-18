@@ -8,7 +8,7 @@
 // @description:zh-CN   自动关闭哔哩哔哩 HTML5 播放器弹幕
 // @description:zh-TW   自動關閉嗶哩嗶哩 HTML5 播放器彈幕
 // @namespace           bilibili-danmaku-disabler
-// @version             2021.03.02
+// @version             2021.08.18
 // @author              Akatsuki Rui
 // @license             MIT License
 // @grant               GM_info
@@ -26,8 +26,8 @@
 "use strict";
 
 const SELECTOR_NATIVE = {
-  on: "input:checked[style='pointer-events: initial;']",
-  off: "input:not(:checked)[style='pointer-events: initial;']",
+  on: "input:checked[class='bui-switch-input']",
+  off: "input:not(:checked)[class='bui-switch-input']",
 };
 
 const SELECTOR_EMBED = {
