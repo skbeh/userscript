@@ -8,13 +8,13 @@
 // @description:zh-CN   自动关闭哔哩哔哩 HTML5 播放器弹幕
 // @description:zh-TW   自動關閉嗶哩嗶哩 HTML5 播放器彈幕
 // @namespace           bilibili-danmaku-disabler
-// @version             2021.08.18
+// @version             2021.10.02
 // @author              Akatsuki Rui
 // @license             MIT License
 // @grant               GM_info
-// @compatible          chrome Since Chrome 49.x
-// @compatible          firefox Since Firefox 44.x
-// @compatible          opera Since 17.x
+// @compatible          chrome  Since Chrome 26
+// @compatible          firefox Since Firefox 14
+// @compatible          opera Since 15
 // @run-at              document-idle
 // @match               *://www.bilibili.com/*video/*
 // @match               *://www.bilibili.com/bangumi/play/*
@@ -35,38 +35,32 @@ const SELECTOR_EMBED = {
   off: "div[class~='bilibili-player-video-btn-danmaku'][data-text='关闭弹幕']",
 };
 
-const SELECTOR =
-  document.location.hostname === "player.bilibili.com"
-    ? SELECTOR_EMBED
-    : SELECTOR_NATIVE;
+const IS_EMBED = document.location.hostname === "player.bilibili.com";
+const SELECTOR = IS_EMBED ? SELECTOR_EMBED : SELECTOR_NATIVE;
 
 // Disable danmaku
-function disableDanmaku(button) {
-  button.click();
+function disableDanmaku() {
+  const button = document.querySelector(SELECTOR.on);
 
+  if (button) button.click();
   setTimeout(() => {
-    if (document.querySelector(SELECTOR.off) === null) {
-      disableDanmaku();
-    }
+    if (document.querySelector(SELECTOR.off) === null) disableDanmaku();
   }, 500);
 }
 
-// PJAX/pushState detector
-function detectPJAX() {
-  let buttonPrevious = null;
-  let buttonCurrent = null;
+// Disable danmaku with PJAX detector
+function disableDanmakuPJAX() {
+  const obServer = new MutationObserver(disableDanmaku);
+  const obTarget = document.getElementById("bilibili-player");
+  const obOption = { childList: true };
 
-  setInterval(() => {
-    buttonCurrent = document.querySelector(SELECTOR.on);
-
-    if (buttonCurrent && buttonCurrent !== buttonPrevious) {
-      buttonPrevious = buttonCurrent;
-      disableDanmaku(buttonCurrent);
-    }
-  }, 500);
+  disableDanmaku();
+  obServer.observe(obTarget, obOption);
 }
 
-// Redirect `/s/video/*` to `/video/*`
-location.href.includes("/s/video/")
-  ? window.location.replace(location.href.replace("/s/video/", "/video/"))
-  : detectPJAX();
+// Redirect `bilibili.com/s/video/*` to `bilibili.com/video/*`
+if (location.href.includes("/s/video/"))
+  location.replace(location.href.replace("/s/video/", "/video/"));
+
+// Run disabler
+IS_EMBED ? disableDanmaku() : disableDanmakuPJAX();
