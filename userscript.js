@@ -8,7 +8,7 @@
 // @description:zh-CN   自动关闭直播弹幕
 // @description:zh-TW   自動關閉直播彈幕
 // @namespace           live-danmaku-controller
-// @version             2021.03.02
+// @version             2021.10.06
 // @author              Akatsuki Rui
 // @license             MIT License
 // @grant               GM_info
@@ -29,8 +29,8 @@ const SELECTOR = {
     off: "div[class^='hidedanmu-']:not([class*='removed-'])",
   },
   "www.huya.com": {
-    on: "div[class='danmu-show-btn'][title='关闭弹幕']",
-    off: "div[class='danmu-show-btn danmu-hide-btn'][title='开启弹幕']",
+    on: "div[id='player-danmu-btn'][title='关闭弹幕']",
+    off: "div[id='player-danmu-btn'][title='开启弹幕']",
   },
   "www.yy.com": {
     on: "div[class~='yc__bullet-comments-btn'][title='关闭弹幕']",
