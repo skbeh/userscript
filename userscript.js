@@ -8,7 +8,7 @@
 // @description:zh-CN   自动关闭哔哩哔哩 HTML5 播放器弹幕
 // @description:zh-TW   自動關閉嗶哩嗶哩 HTML5 播放器彈幕
 // @namespace           bilibili-danmaku-disabler
-// @version             2021.10.29
+// @version             2021.10.29.1
 // @author              Akatsuki Rui
 // @license             MIT License
 // @grant               GM_info
@@ -46,11 +46,13 @@ function skipCharge() {
     videoElement = document.querySelector("bwp-video");
   }
 
-  videoElement.onended = () => {
-    document
-      .getElementsByClassName("bilibili-player-video-btn-next")[0]
-      .click();
-  };
+  if (!videoElement.onended) {
+    videoElement.onended = () => {
+      document
+        .getElementsByClassName("bilibili-player-video-btn-next")[0]
+        .click();
+    };
+  }
 }
 
 // Disable danmaku
