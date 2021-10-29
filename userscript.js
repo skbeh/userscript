@@ -8,7 +8,7 @@
 // @description:zh-CN   自动关闭哔哩哔哩 HTML5 播放器弹幕
 // @description:zh-TW   自動關閉嗶哩嗶哩 HTML5 播放器彈幕
 // @namespace           bilibili-danmaku-disabler
-// @version             2021.10.02
+// @version             2021.10.29
 // @author              Akatsuki Rui
 // @license             MIT License
 // @grant               GM_info
@@ -38,13 +38,34 @@ const SELECTOR_EMBED = {
 const IS_EMBED = document.location.hostname === "player.bilibili.com";
 const SELECTOR = IS_EMBED ? SELECTOR_EMBED : SELECTOR_NATIVE;
 
+// Skip Charge Support
+function skipCharge() {
+  let videoElement = document.querySelector("video");
+
+  if (!videoElement) {
+    videoElement = document.querySelector("bwp-video");
+  }
+
+  videoElement.onended = () => {
+    document
+      .getElementsByClassName("bilibili-player-video-btn-next")[0]
+      .click();
+  };
+}
+
 // Disable danmaku
 function disableDanmaku() {
   const button = document.querySelector(SELECTOR.on);
 
-  if (button) button.click();
+  if (button) {
+    button.click();
+    skipCharge();
+  }
+
   setTimeout(() => {
-    if (document.querySelector(SELECTOR.off) === null) disableDanmaku();
+    if (document.querySelector(SELECTOR.off) === null) {
+      disableDanmaku();
+    }
   }, 500);
 }
 
@@ -59,8 +80,9 @@ function disableDanmakuPJAX() {
 }
 
 // Redirect `bilibili.com/s/video/*` to `bilibili.com/video/*`
-if (location.href.includes("/s/video/"))
+if (location.href.includes("/s/video/")) {
   location.replace(location.href.replace("/s/video/", "/video/"));
+}
 
 // Run disabler
 IS_EMBED ? disableDanmaku() : disableDanmakuPJAX();
