@@ -8,7 +8,7 @@
 // @description:zh-CN   自动关闭哔哩哔哩 HTML5 播放器弹幕
 // @description:zh-TW   自動關閉嗶哩嗶哩 HTML5 播放器彈幕
 // @namespace           bilibili-danmaku-disabler
-// @version             2021.10.29.1
+// @version             2021.11.06
 // @author              Akatsuki Rui
 // @license             MIT License
 // @grant               GM_info
@@ -40,18 +40,19 @@ const SELECTOR = IS_EMBED ? SELECTOR_EMBED : SELECTOR_NATIVE;
 
 // Skip Charge Support
 function skipCharge() {
-  let videoElement = document.querySelector("video");
+  const skip = () => {
+    document
+      .getElementsByClassName("bilibili-player-video-btn-next")[0]
+      .click();
+  };
 
-  if (!videoElement) {
-    videoElement = document.querySelector("bwp-video");
-  }
+  const videoElementA = document.querySelector("video");
+  const videoElementB = document.querySelector("bwp-video");
 
-  if (!videoElement.onended) {
-    videoElement.onended = () => {
-      document
-        .getElementsByClassName("bilibili-player-video-btn-next")[0]
-        .click();
-    };
+  if (videoElementA) {
+    videoElementA.onended = skip;
+  } else if (videoElementB) {
+    videoElementB.onended = skip;
   }
 }
 
@@ -64,11 +65,9 @@ function disableDanmaku() {
     skipCharge();
   }
 
-  setTimeout(() => {
-    if (document.querySelector(SELECTOR.off) === null) {
-      disableDanmaku();
-    }
-  }, 500);
+  if (!document.querySelector(SELECTOR.off)) {
+    setTimeout(disableDanmaku, 500);
+  }
 }
 
 // Disable danmaku with PJAX detector
