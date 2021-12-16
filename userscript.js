@@ -8,7 +8,7 @@
 // @description:zh-CN   自动关闭哔哩哔哩 HTML5 播放器弹幕
 // @description:zh-TW   自動關閉嗶哩嗶哩 HTML5 播放器彈幕
 // @namespace           bilibili-danmaku-disabler
-// @version             2021.11.06
+// @version             2021.12.16
 // @author              Akatsuki Rui
 // @license             MIT License
 // @grant               GM_info
@@ -42,7 +42,7 @@ const SELECTOR = IS_EMBED ? SELECTOR_EMBED : SELECTOR_NATIVE;
 function skipCharge() {
   const skip = () => {
     document
-      .getElementsByClassName("bilibili-player-video-btn-next")[0]
+      .getElementsByClassName("bilibili-player-electric-panel-jump")[0]
       .click();
   };
 
