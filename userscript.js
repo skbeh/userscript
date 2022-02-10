@@ -6,10 +6,11 @@
 // @description:en-US   Automatically redirect NGA domains to bbs.nga.cn
 // @description:zh-CN   自动重定向 NGA 域名到 bbs.nga.cn
 // @namespace           nga-redirector
-// @version             2021.12.09
+// @version             2022.02.10
 // @author              Akatsuki Rui
 // @license             MIT License
 // @run-at              document-start
+// @match               *://g.nga.cn/*
 // @match               *://nga.178.com/*
 // @match               *://ngabbs.com/*
 // @match               *://ngacn.cc/*
