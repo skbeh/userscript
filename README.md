@@ -8,6 +8,14 @@
 
 Support bilibili native and embed HTML5 player.
 
+## Skip Charge
+
+Recommended to add this rule to uBlock Origin rules, For better skip charge experience:
+
+```
+www.bilibili.com##.bilibili-player-electric-panel
+```
+
 ## Additional Script
 
 - [Live Danmaku Controller][addon-script]
