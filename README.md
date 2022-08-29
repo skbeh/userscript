@@ -1,6 +1,8 @@
 # NGA Redirector
 
-Automatically redirect NGA domains to `bbs.nga.cn`
+Automatically redirect NGA domains to `nga.178.com`
+
+Note: `bbs.nga.cn` reply system temporarily unavailable.
 
 ## GitHub
 
