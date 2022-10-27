@@ -8,13 +8,19 @@
 
 Support bilibili native and embed HTML5 player.
 
-## Skip Charge
+## Additional Features
+
+### Skip Charge
 
 Recommended to add this rule to uBlock Origin rules, For better skip charge experience:
 
 ```
 www.bilibili.com##.bilibili-player-electric-panel
 ```
+
+### Cancel Related Video
+
+Cancel the next related video at the end of the video.
 
 ## Additional Script
 

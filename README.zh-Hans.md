@@ -8,13 +8,19 @@
 
 支持哔哩哔哩主站和嵌入 HTML5 播放器。
 
-## 跳过充电界面
+## 其他功能
+
+### 跳过充电界面
 
 推荐添加以下规则至 uBlock Origin 规则中，避免跳过充电界面时播放器闪烁：
 
 ```
 www.bilibili.com##.bilibili-player-electric-panel
 ```
+
+### 取消自动连播
+
+在视频结束后取消连播。
 
 ## 附加脚本
 

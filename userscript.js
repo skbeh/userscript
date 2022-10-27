@@ -8,7 +8,7 @@
 // @description:zh-CN   自动关闭哔哩哔哩 HTML5 播放器弹幕
 // @description:zh-TW   自動關閉嗶哩嗶哩 HTML5 播放器彈幕
 // @namespace           bilibili-danmaku-disabler
-// @version             2022.03.11
+// @version             2022.10.27
 // @author              Akatsuki Rui
 // @license             MIT License
 // @grant               GM_info
@@ -26,26 +26,40 @@
 "use strict";
 
 const SELECTOR_NATIVE = {
-  on: "input:checked[class='bui-switch-input']",
-  off: "input:not(:checked)[class='bui-switch-input']",
+  on: "input:checked[class='bui-switch-input'][aria-label='']",
+  off: "input:not(:checked)[class='bui-switch-input'][aria-label='']",
+  onNew: "input:checked[class='bui-danmaku-switch-input']",
+  offNew: "input:not(:checked)[class='bui-danmaku-switch-input']",
 };
 
 const SELECTOR_EMBED = {
   on: "div[class~='bilibili-player-video-btn-danmaku'][data-text='打开弹幕']",
   off: "div[class~='bilibili-player-video-btn-danmaku'][data-text='关闭弹幕']",
+  onNew: "",
+  offNew: "",
+};
+
+const SELECTOR_OTHER = {
+  support: ".bilibili-player-electric-panel-jump",
+  related: ".bpx-player-ending-related-item-cancel",
 };
 
 const IS_EMBED = document.location.hostname === "player.bilibili.com";
 const SELECTOR = IS_EMBED ? SELECTOR_EMBED : SELECTOR_NATIVE;
 
-// Skip Charge Support
-function skipCharge() {
+// Click element with timeout
+function clickElement(element, timeout) {
+  setTimeout(() => {
+    const button = document.querySelector(element);
+    if (button) button.click();
+  }, timeout);
+}
+
+// Skip some features
+function skipFeature() {
   const skip = () => {
-    setTimeout(() => {
-      document
-        .getElementsByClassName("bilibili-player-electric-panel-jump")[0]
-        .click();
-    }, 10);
+    clickElement(SELECTOR_OTHER.support, 10);
+    clickElement(SELECTOR_OTHER.related, 100);
   };
 
   const videoElementA = document.querySelector("video");
@@ -53,36 +67,38 @@ function skipCharge() {
 
   if (videoElementA) {
     videoElementA.onended = skip;
-  } else if (videoElementB) {
+  }
+  if (videoElementB) {
     videoElementB.onended = skip;
   }
 }
 
 // Disable danmaku
 function disableDanmaku() {
-  const button = document.querySelector(SELECTOR.on);
+  if (
+    !document.querySelector(SELECTOR.off) &&
+    !document.querySelector(SELECTOR.offNew)
+  ) {
+    clickElement(SELECTOR.on, 100);
+    clickElement(SELECTOR.onNew, 100);
 
-  if (button) {
-    button.click();
-    skipCharge();
-  }
-
-  if (!document.querySelector(SELECTOR.off)) {
     setTimeout(disableDanmaku, 500);
+  } else {
+    skipFeature();
   }
 }
 
-// Disable danmaku with PJAX detector
+// PJAX detector
 function disableDanmakuPJAX() {
   const obServer = new MutationObserver(disableDanmaku);
-  const obTarget = document.getElementById("bilibili-player");
+  const obTarget = document.head;
   const obOption = { childList: true };
 
   disableDanmaku();
   obServer.observe(obTarget, obOption);
 }
 
-// Redirect `bilibili.com/s/video/*` to `bilibili.com/video/*`
+// Redirect page
 if (location.href.includes("/s/video/")) {
   location.replace(location.href.replace("/s/video/", "/video/"));
 }

@@ -8,13 +8,19 @@
 
 支持嗶哩嗶哩主站和嵌入 HTML5 播放器。
 
-## 跳過充電界面
+## 其他功能
+
+### 跳過充電界面
 
 推薦添加以下規則至 uBlock Origin 規則中，避免跳過充電界面時播放器閃爍：
 
 ```
 www.bilibili.com##.bilibili-player-electric-panel
 ```
+
+### 取消自動連播
+
+在視頻結束後取消連播。
 
 ## 附加腳本
 
